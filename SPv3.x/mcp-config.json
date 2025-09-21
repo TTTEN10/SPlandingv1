@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "shadcn": {
+      "command": "node",
+      "args": ["/Users/thibauttenenbaum/Desktop/SPv3.4/mcp-server/index.js"],
+      "env": {}
+    }
+  }
+}

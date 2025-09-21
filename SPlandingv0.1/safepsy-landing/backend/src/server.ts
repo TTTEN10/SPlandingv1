@@ -1,0 +1,164 @@
+import express from 'express'
+import cors from 'cors'
+import helmet from 'helmet'
+import rateLimit from 'express-rate-limit'
+import dotenv from 'dotenv'
+import { PrismaClient } from '@prisma/client'
+import crypto from 'crypto'
+import Joi from 'joi'
+
+// Load environment variables
+dotenv.config()
+
+const app = express()
+const prisma = new PrismaClient()
+
+// Security middleware
+app.use(helmet())
+app.use(cors({
+  origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+  credentials: true,
+}))
+
+// Rate limiting for general API endpoints
+const generalLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // limit each IP to 100 requests per windowMs
+  message: 'Too many requests from this IP, please try again later.',
+})
+
+// Specific rate limiting for email subscription endpoint
+const subscriptionLimiter = rateLimit({
+  windowMs: 60 * 1000, // 1 minute
+  max: 5, // limit each IP to 5 requests per minute
+  message: {
+    success: false,
+    message: 'Too many subscription attempts. Please wait a minute before trying again.',
+  },
+  standardHeaders: true,
+  legacyHeaders: false,
+})
+
+app.use('/api', generalLimiter)
+app.use('/api/subscribe', subscriptionLimiter)
+
+// Body parsing middleware
+app.use(express.json({ limit: '10mb' }))
+app.use(express.urlencoded({ extended: true }))
+
+// Email validation schema
+const emailSchema = Joi.object({
+  email: Joi.string()
+    .email()
+    .required()
+    .messages({
+      'string.email': 'Please provide a valid email address',
+      'any.required': 'Email is required',
+    }),
+})
+
+// IP hashing utility with privacy by design (default OFF)
+const hashIP = (ip: string): string => {
+  const enabled = process.env.IP_HASHING_ENABLED === 'true'
+  const salt = process.env.IP_SALT || 'default-privacy-salt-change-in-production'
+  
+  // If IP hashing is disabled (default), return a placeholder
+  if (!enabled) {
+    return 'IP_HASHING_DISABLED'
+  }
+  
+  return crypto.createHash('sha256').update(ip + salt).digest('hex')
+}
+
+// Health check endpoint
+app.get('/health', (req, res) => {
+  res.json({ status: 'ok', timestamp: new Date().toISOString() })
+})
+
+// Subscribe endpoint
+app.post('/api/subscribe', async (req, res) => {
+  try {
+    // Validate request body
+    const { error, value } = emailSchema.validate(req.body)
+    if (error) {
+      return res.status(400).json({
+        success: false,
+        message: error.details[0].message,
+      })
+    }
+
+    const { email } = value
+    const clientIP = req.ip || req.connection.remoteAddress || 'unknown'
+    const ipHash = hashIP(clientIP)
+
+    // Check if email already exists
+    const existingSubscription = await prisma.emailSubscription.findUnique({
+      where: { email },
+    })
+
+    if (existingSubscription) {
+      return res.status(409).json({
+        success: false,
+        message: 'This email is already on our waitlist',
+      })
+    }
+
+    // Create new subscription
+    await prisma.emailSubscription.create({
+      data: {
+        email,
+        ipHash,
+      },
+    })
+
+    res.json({
+      success: true,
+      message: 'Successfully joined our waitlist! We\'ll notify you when SafePsy launches.',
+    })
+  } catch (error) {
+    console.error('Subscription error:', error)
+    res.status(500).json({
+      success: false,
+      message: 'Something went wrong. Please try again later.',
+    })
+  }
+})
+
+// Error handling middleware
+app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
+  console.error('Unhandled error:', err)
+  res.status(500).json({
+    success: false,
+    message: 'Internal server error',
+  })
+})
+
+// 404 handler
+app.use('*', (req, res) => {
+  res.status(404).json({
+    success: false,
+    message: 'Endpoint not found',
+  })
+})
+
+const PORT = process.env.PORT || 3001
+
+// Graceful shutdown
+process.on('SIGINT', async () => {
+  console.log('Shutting down gracefully...')
+  await prisma.$disconnect()
+  process.exit(0)
+})
+
+process.on('SIGTERM', async () => {
+  console.log('Shutting down gracefully...')
+  await prisma.$disconnect()
+  process.exit(0)
+})
+
+app.listen(PORT, () => {
+  console.log(`🚀 SafePsy backend server running on port ${PORT}`)
+  console.log(`📊 Health check: http://localhost:${PORT}/health`)
+})
+
+export default app

@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;600&family=Noto+Sans:wght@300&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: 'Titillium Web', system-ui, sans-serif;
+  }
+  
+  body {
+    @apply bg-gradient-to-br from-neutral-light via-white to-neutral-dark min-h-screen;
+    color: #001515;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Titillium Web', sans-serif;
+    font-weight: 600;
+    color: #001515;
+  }
+  
+  p, span, div {
+    font-family: 'Titillium Web', sans-serif;
+    font-weight: 400;
+    color: #001515;
+  }
+  
+  .font-web-safe {
+    font-family: 'Noto Sans', sans-serif;
+    font-weight: 300;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-gradient-to-r from-primary-600 to-secondary-600 hover:from-primary-700 hover:to-secondary-700 text-white font-titillium font-semibold py-3 px-6 rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2;
+  }
+  
+  .btn-secondary {
+    @apply bg-white hover:bg-neutral-light text-text-primary font-titillium font-semibold py-3 px-6 rounded-lg border border-neutral-dark transition-all duration-200 shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2;
+  }
+  
+  .input-field {
+    @apply w-full px-4 py-3 border border-neutral-dark rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200 font-titillium font-regular text-text-primary;
+  }
+  
+  .section-padding {
+    @apply px-4 sm:px-6 lg:px-8;
+  }
+  
+  .container-max {
+    @apply max-w-7xl mx-auto;
+  }
+  
+  .text-heading {
+    @apply font-titillium font-semibold text-text-primary;
+  }
+  
+  .text-body {
+    @apply font-titillium font-regular text-text-primary;
+  }
+  
+  .text-web-safe {
+    @apply font-noto font-light text-text-primary;
+  }
+}
