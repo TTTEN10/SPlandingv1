@@ -1,5 +1,5 @@
 {
-  "name": "safepsy-frontend",
+  "name": "safepsy-web",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -19,6 +19,7 @@
     "lucide-react": "^0.294.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-helmet-async": "^2.0.5",
     "react-router-dom": "^7.9.1"
   },
   "devDependencies": {

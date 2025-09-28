@@ -1,0 +1,41 @@
+{
+  "name": "safepsy-landing",
+  "version": "1.0.0",
+  "description": "SafePsy landing page - Secure, Ethical, Human-centered online therapy platform",
+  "private": true,
+  "workspaces": ["apps/*"],
+  "scripts": {
+    "dev:web": "vite --config apps/web/vite.config.ts",
+    "dev:api": "cd apps/api && nodemon --config nodemon.json",
+    "dev": "concurrently -k \"npm:dev:web\" \"npm:dev:api\"",
+    "build:web": "tsc -b apps/web && vite build --config apps/web/vite.config.ts",
+    "build:api": "tsc -b apps/api",
+    "build": "npm run build:web && npm run build:api",
+    "test": "npm run test:web && npm run test:api",
+    "test:web": "cd apps/web && npm run test",
+    "test:api": "cd apps/api && npm run test",
+    "lint": "npm run lint:web && npm run lint:api",
+    "lint:web": "cd apps/web && npm run lint",
+    "lint:api": "cd apps/api && npm run lint",
+    "format": "npm run format:web && npm run format:api",
+    "format:web": "cd apps/web && npm run format",
+    "format:api": "cd apps/api && npm run format",
+    "typecheck": "npm run typecheck:web && npm run typecheck:api",
+    "typecheck:web": "cd apps/web && npm run typecheck",
+    "typecheck:api": "cd apps/api && npm run typecheck",
+    "db:generate": "prisma generate",
+    "db:push": "prisma db push",
+    "db:migrate": "prisma migrate dev",
+    "db:studio": "prisma studio"
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.0",
+    "prisma": "^5.7.1",
+    "typescript": "^5.5.4",
+    "vitest": "^2.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  }
+}
