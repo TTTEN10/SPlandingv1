@@ -6,6 +6,7 @@ import dotenv from 'dotenv'
 import { PrismaClient } from '@prisma/client'
 import crypto from 'crypto'
 import Joi from 'joi'
+import path from 'path'
 
 // Load environment variables
 dotenv.config()
@@ -46,6 +47,9 @@ app.use('/api/subscribe', subscriptionLimiter)
 app.use(express.json({ limit: '10mb' }))
 app.use(express.urlencoded({ extended: true }))
 
+// Static file serving
+app.use(express.static(path.join(__dirname, '../public')))
+
 // Waitlist validation schema
 const waitlistSchema = Joi.object({
   email: Joi.string()
@@ -80,6 +84,44 @@ const waitlistSchema = Joi.object({
     }),
 })
 
+// Contact form validation schema
+const contactSchema = Joi.object({
+  email: Joi.string()
+    .email()
+    .required()
+    .messages({
+      'string.email': 'Please provide a valid email address',
+      'any.required': 'Email is required',
+    }),
+  fullName: Joi.string()
+    .min(2)
+    .max(100)
+    .required()
+    .messages({
+      'string.min': 'Full name must be at least 2 characters',
+      'string.max': 'Full name must be less than 100 characters',
+      'any.required': 'Full name is required',
+    }),
+  subject: Joi.string()
+    .min(5)
+    .max(200)
+    .required()
+    .messages({
+      'string.min': 'Subject must be at least 5 characters',
+      'string.max': 'Subject must be less than 200 characters',
+      'any.required': 'Subject is required',
+    }),
+  message: Joi.string()
+    .min(10)
+    .max(2000)
+    .required()
+    .messages({
+      'string.min': 'Message must be at least 10 characters',
+      'string.max': 'Message must be less than 2000 characters',
+      'any.required': 'Message is required',
+    }),
+})
+
 // IP hashing utility with privacy by design (default OFF)
 const hashIP = (ip: string): string => {
   const enabled = process.env.IP_HASHING_ENABLED === 'true'
@@ -96,6 +138,11 @@ const hashIP = (ip: string): string => {
 // Health check endpoint
 app.get('/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() })
+})
+
+// Favicon endpoint
+app.get('/favicon.ico', (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/HeadsOnlyTransparent.png'))
 })
 
 // Subscribe endpoint
@@ -145,6 +192,46 @@ app.post('/api/subscribe', async (req, res) => {
     })
   } catch (error) {
     console.error('Subscription error:', error)
+    res.status(500).json({
+      success: false,
+      message: 'Something went wrong. Please try again later.',
+    })
+  }
+})
+
+// Contact endpoint
+app.post('/api/contact', async (req, res) => {
+  try {
+    // Validate request body
+    const { error, value } = contactSchema.validate(req.body)
+    if (error) {
+      return res.status(400).json({
+        success: false,
+        message: error.details[0].message,
+      })
+    }
+
+    const { email, fullName, subject, message } = value
+    const clientIP = req.ip || req.connection.remoteAddress || 'unknown'
+    const ipHash = hashIP(clientIP)
+
+    // Create new contact message
+    await prisma.contactMessage.create({
+      data: {
+        email,
+        fullName,
+        subject,
+        message,
+        ipHash,
+      },
+    })
+
+    res.json({
+      success: true,
+      message: 'Thank you for your message! We\'ll get back to you soon.',
+    })
+  } catch (error) {
+    console.error('Contact form error:', error)
     res.status(500).json({
       success: false,
       message: 'Something went wrong. Please try again later.',

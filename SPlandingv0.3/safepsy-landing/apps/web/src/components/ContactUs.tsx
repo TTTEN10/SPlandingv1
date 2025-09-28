@@ -1,12 +1,98 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Header from './Header'
 import Footer from './Footer'
 
+interface ContactResponse {
+  success: boolean
+  message: string
+}
+
 const ContactUs: React.FC = () => {
-  const handleSubmit = (e: React.FormEvent) => {
+  const [formData, setFormData] = useState({
+    fullName: '',
+    email: '',
+    subject: '',
+    message: ''
+  })
+  const [isLoading, setIsLoading] = useState(false)
+  const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle')
+  const [message, setMessage] = useState('')
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }))
+  }
+
+  const validateForm = () => {
+    if (!formData.fullName.trim()) {
+      setStatus('error')
+      setMessage('Please enter your full name')
+      return false
+    }
+    if (!formData.email.trim()) {
+      setStatus('error')
+      setMessage('Please enter your email address')
+      return false
+    }
+    if (!formData.subject.trim()) {
+      setStatus('error')
+      setMessage('Please enter a subject')
+      return false
+    }
+    if (!formData.message.trim()) {
+      setStatus('error')
+      setMessage('Please enter your message')
+      return false
+    }
+    return true
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // Handle form submission here
-    console.log('Contact form submitted')
+    
+    if (!validateForm()) return
+
+    setIsLoading(true)
+    setStatus('idle')
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          fullName: formData.fullName.trim(),
+          email: formData.email.trim().toLowerCase(),
+          subject: formData.subject.trim(),
+          message: formData.message.trim()
+        }),
+      })
+
+      const data: ContactResponse = await response.json()
+
+      if (response.ok && data.success) {
+        setStatus('success')
+        setMessage(data.message)
+        setFormData({
+          fullName: '',
+          email: '',
+          subject: '',
+          message: ''
+        })
+      } else {
+        setStatus('error')
+        setMessage(data.message || 'Something went wrong. Please try again.')
+      }
+    } catch (error) {
+      setStatus('error')
+      setMessage('Network error. Please check your connection and try again.')
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -38,6 +124,19 @@ const ContactUs: React.FC = () => {
                 </span>
               </h2>
               
+              {/* Status Messages */}
+              {status === 'success' && (
+                <div className="mb-6 p-4 bg-green-100 border border-green-400 text-green-700 rounded-xl">
+                  <p className="font-medium">{message}</p>
+                </div>
+              )}
+              
+              {status === 'error' && (
+                <div className="mb-6 p-4 bg-red-100 border border-red-400 text-red-700 dark:bg-red-900/20 dark:border-red-500/50 dark:text-red-300 rounded-xl">
+                  <p className="font-medium">{message}</p>
+                </div>
+              )}
+
               <form onSubmit={handleSubmit} className="space-y-6 max-w-4xl mx-auto">
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="space-y-2">
@@ -48,6 +147,8 @@ const ContactUs: React.FC = () => {
                       type="text"
                       id="fullName"
                       name="fullName"
+                      value={formData.fullName}
+                      onChange={handleInputChange}
                       required
                       className="w-full px-4 py-3 text-lg border-2 border-neutral-300 rounded-xl focus:border-primary-500 focus:ring-2 focus:ring-primary-200 focus:outline-none transition-all duration-200 bg-white/80 backdrop-blur-sm"
                       placeholder="Enter your full name"
@@ -62,6 +163,8 @@ const ContactUs: React.FC = () => {
                       type="email"
                       id="email"
                       name="email"
+                      value={formData.email}
+                      onChange={handleInputChange}
                       required
                       className="w-full px-4 py-3 text-lg border-2 border-neutral-300 rounded-xl focus:border-primary-500 focus:ring-2 focus:ring-primary-200 focus:outline-none transition-all duration-200 bg-white/80 backdrop-blur-sm"
                       placeholder="Enter your email address"
@@ -77,6 +180,8 @@ const ContactUs: React.FC = () => {
                     type="text"
                     id="subject"
                     name="subject"
+                    value={formData.subject}
+                    onChange={handleInputChange}
                     required
                     className="w-full px-4 py-3 text-lg border-2 border-neutral-300 rounded-xl focus:border-primary-500 focus:ring-2 focus:ring-primary-200 focus:outline-none transition-all duration-200 bg-white/80 backdrop-blur-sm"
                     placeholder="What's this about?"
@@ -90,6 +195,8 @@ const ContactUs: React.FC = () => {
                   <textarea
                     id="message"
                     name="message"
+                    value={formData.message}
+                    onChange={handleInputChange}
                     required
                     rows={6}
                     className="w-full px-4 py-3 text-lg border-2 border-neutral-300 rounded-xl focus:border-primary-500 focus:ring-2 focus:ring-primary-200 focus:outline-none transition-all duration-200 bg-white/80 backdrop-blur-sm resize-none"
@@ -100,9 +207,10 @@ const ContactUs: React.FC = () => {
                 <div className="text-center">
                   <button
                     type="submit"
-                    className="bg-gradient-to-r from-primary-600 to-secondary-600 text-white font-semibold text-lg px-12 py-4 rounded-xl hover:from-primary-700 hover:to-secondary-700 focus:outline-none focus:ring-4 focus:ring-primary-200 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+                    disabled={isLoading}
+                    className="bg-gradient-to-r from-primary-600 to-secondary-600 text-white font-semibold text-lg px-12 py-4 rounded-xl hover:from-primary-700 hover:to-secondary-700 focus:outline-none focus:ring-4 focus:ring-primary-200 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                   >
-                    Send Message
+                    {isLoading ? 'Sending...' : 'Send Message'}
                   </button>
                 </div>
               </form>

@@ -42,7 +42,7 @@ const Hero: React.FC = () => {
           <div className="relative order-2 lg:order-2">
             <div className="rounded-3xl overflow-hidden h-[280px] sm:h-[320px] md:h-[360px] lg:h-[450px] flex items-center justify-center">
               <img 
-                src="/HeroTheme.png" 
+                src="/HeroTheme1.png" 
                 alt="SafePsy Platform Interface" 
                 className="w-[90%] h-[90%] object-contain rounded-3xl"
               />

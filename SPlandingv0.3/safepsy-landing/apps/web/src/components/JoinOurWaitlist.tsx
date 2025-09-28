@@ -220,8 +220,8 @@ const JoinOurWaitlist: React.FC = () => {
                     aria-live="polite"
                     className={`p-4 rounded-lg flex items-center gap-3 ${
                       status === 'success'
-                        ? 'bg-primary-50 text-primary-800 border border-primary-200'
-                        : 'bg-red-50 text-red-800 border border-red-200'
+                        ? 'bg-primary-50 text-primary-800 border border-primary-200 dark:bg-primary-900/20 dark:text-primary-300 dark:border-primary-500/50'
+                        : 'bg-red-50 text-red-800 border border-red-200 dark:bg-red-900/20 dark:text-red-300 dark:border-red-500/50'
                     }`}
                   >
                     {status === 'success' ? (

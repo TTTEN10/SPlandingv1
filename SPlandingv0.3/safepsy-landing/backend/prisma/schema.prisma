@@ -11,11 +11,28 @@ datasource db {
 }
 
 model EmailSubscription {
+  id              String   @id @default(cuid())
+  email           String   @unique
+  fullName        String?
+  role            String?  // client, therapist, partner
+  ipHash          String?
+  consentGiven    Boolean  @default(false)
+  consentTimestamp DateTime?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@map("email_subscriptions")
+}
+
+model ContactMessage {
   id        String   @id @default(cuid())
-  email     String   @unique
+  fullName  String
+  email     String
+  subject   String
+  message   String
   ipHash    String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@map("email_subscriptions")
+  @@map("contact_messages")
 }
