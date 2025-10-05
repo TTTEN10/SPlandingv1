@@ -36,7 +36,7 @@ const EmailSignup: React.FC = () => {
     setStatus('idle')
 
     try {
-      const response = await fetch('/api/subscribe', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL || '/api'}/subscribe`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -1,6 +1,6 @@
 # SafePsy Landing Page
 
-A production-ready landing page for SafePsy - the privacy-first online therapy platform. Built with modern web technologies and privacy-by-design principles.
+A production-ready landing page for SafePsy - the privacy-first online therapy platform. Built with modern web technologies and privacy-by-design principles, this landing page serves as the entry point for the SafePsy Global Platform.
 
 ## 🚀 Features
 
@@ -83,8 +83,8 @@ safepsy-landing/
 
 1. **Clone and install dependencies:**
    ```bash
-   git clone <repository-url>
-   cd safepsy-landing
+   git clone https://github.com/TTTEN10/SPglobalv1.git
+   cd SPglobalv1/SPlandingv1/safepsy-landing
    npm install
    cd apps/web && npm install
    cd ../api && npm install

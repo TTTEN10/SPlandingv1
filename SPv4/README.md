@@ -1,24 +1,22 @@
-# SafePsy - Decentralized Identity Platform
+# SafePsy Platform v4 - Decentralized Identity Platform
 
 ## 🚀 Project Overview
 
-SafePsy is a comprehensive decentralized identity platform built for secure therapy and mental health services. This platform includes advanced DID (Decentralized Identity) contracts, Polygon Amoy testnet integration, AI-powered therapy assistance, and enterprise-grade security features with full operational runbooks.
+SafePsy Platform v4 is the main application component of the SafePsy Global Platform, providing comprehensive decentralized identity management for secure therapy and mental health services. This platform includes advanced DID (Decentralized Identity) contracts, Polygon Amoy testnet integration, AI-powered therapy assistance, and enterprise-grade security features with full operational runbooks.
 
 ## 📁 Project Structure
 
 ```
-SafePsy/
+SPv4/
 ├── ai-chatbot/          # AI-powered chatbot service with DID indexing
 ├── backend/             # Node.js/TypeScript backend API with smart contracts
 ├── frontend/            # React frontend application with shadcn/ui
-│   ├── src/components/  # React components
-│   │   ├── TermsOfService.jsx  # Legal terms page
-│   │   ├── PrivacyPolicy.jsx   # Privacy & security page
-│   │   ├── Footer.jsx          # Reusable footer
-│   │   └── ui/                 # shadcn/ui components
-│   └── LEGAL-PAGES-README.md   # Legal pages documentation
+├── apps/                # Additional applications
+│   ├── web/             # Web application
+│   └── api/             # API application
+├── packages/             # Shared packages
+│   └── shared-types/    # TypeScript types and contract ABIs
 ├── mcp-server/          # Shadcn MCP server for component management
-├── packages/            # Shared TypeScript types and contracts
 ├── ops/                 # Operational runbooks and procedures
 │   └── runbooks/        # Comprehensive operational documentation
 ├── nginx/               # Nginx configuration
@@ -92,8 +90,8 @@ SafePsy/
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/TTTEN10/SPv3.4.git
-   cd SPv3.4
+   git clone https://github.com/TTTEN10/SPglobalv1.git
+   cd SPglobalv1/SPv4
    ```
 
 2. **Install dependencies**
@@ -318,10 +316,10 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## 🔗 Links
 
-- **Repository** - https://github.com/TTTEN10/SPv3.4
-- **Documentation** - https://github.com/TTTEN10/SPv3.4/docs
-- **Issues** - https://github.com/TTTEN10/SPv3.4/issues
-- **Operational Runbooks** - https://github.com/TTTEN10/SPv3.4/ops/runbooks
+- **Repository** - https://github.com/TTTEN10/SPglobalv1
+- **Documentation** - https://github.com/TTTEN10/SPglobalv1/docs
+- **Issues** - https://github.com/TTTEN10/SPglobalv1/issues
+- **Operational Runbooks** - https://github.com/TTTEN10/SPglobalv1/SPv4/ops/runbooks
 - **Status Page** - https://status.safepsy.com
 - **Website** - https://www.safepsy.com
 

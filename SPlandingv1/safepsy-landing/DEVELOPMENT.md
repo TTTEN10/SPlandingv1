@@ -4,7 +4,7 @@
 
 ```bash
 # Install all dependencies
-npm install && cd frontend && npm install && cd ../backend && npm install
+npm install && cd apps/web && npm install && cd ../api && npm install
 
 # Start development servers
 npm run dev
@@ -21,8 +21,8 @@ npm run build
 1. Copy environment files:
    ```bash
    cp env.example .env
-   cp frontend/env.example frontend/.env
-   cp backend/env.example backend/.env
+   cp apps/web/env.example apps/web/.env
+   cp apps/api/env.example apps/api/.env
    ```
 
 2. Generate secure IP salt:
@@ -32,7 +32,7 @@ npm run build
 
 3. Initialize database:
    ```bash
-   cd backend
+   cd apps/api
    npx prisma generate
    npx prisma db push
    ```
@@ -56,11 +56,11 @@ docker-compose down -v
 # All tests
 npm run test
 
-# Frontend only
-cd frontend && npm run test
+# Web app only
+cd apps/web && npm run test
 
-# Backend only
-cd backend && npm run test
+# API only
+cd apps/api && npm run test
 
 # With coverage
 npm run test:coverage
