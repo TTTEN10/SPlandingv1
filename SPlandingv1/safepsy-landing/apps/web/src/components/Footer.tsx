@@ -22,7 +22,7 @@ const Footer: React.FC = () => {
               <img src="/LogoTransparent1.png" alt="SafePsy Logo" className="h-16" />
             </a>
             <p className="text-text-primary font-titillium font-regular text-[1.1em]">
-              Smart, Secure, and Private Therapy Powered by AI and Blockchain
+              Safe Online-Therapy
             </p>
           </div>
 

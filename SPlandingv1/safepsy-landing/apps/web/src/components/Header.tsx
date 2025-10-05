@@ -25,7 +25,7 @@ const Header: React.FC<HeaderProps> = ({
         
         {showTagline && (
           <p className="text-[1.1em] text-web-safe hidden sm:block">
-            Smart, Secure, and Private Therapy Powered by AI and Blockchain
+            Safe Online-Therapy
           </p>
         )}
         

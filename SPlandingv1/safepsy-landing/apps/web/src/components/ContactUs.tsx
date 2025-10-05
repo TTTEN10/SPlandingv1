@@ -112,7 +112,8 @@ const ContactUs: React.FC = () => {
                 </span>
               </h1>
               <p className="text-xl text-body leading-relaxed max-w-3xl mx-auto">
-                Have questions about SafePsy? We're here to help. Reach out to us and we'll get back to you as soon as possible.
+                Have questions about SafePsy?<br />
+                Reach out to us and we will get back to you.
               </p>
             </div>
 

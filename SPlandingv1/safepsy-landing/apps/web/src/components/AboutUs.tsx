@@ -22,10 +22,6 @@ const AboutUs: React.FC = () => {
                   SafePsy
                 </span>
               </h1>
-              <p className="text-xl text-body leading-relaxed max-w-3xl mx-auto">
-                Smart, Secure, and Private Therapy<br />
-                Powered by AI and Blockchain
-              </p>
             </div>
 
             {/* Mission Section */}
@@ -35,10 +31,11 @@ const AboutUs: React.FC = () => {
                   Our Mission
                 </span>
               </h2>
-              <p className="text-lg text-body leading-relaxed text-center max-w-4xl mx-auto">
-                SafePsy is revolutionizing mental health care by providing the most secure online psychotherapy service. 
-                We combine cutting-edge AI technology with blockchain security to ensure your privacy while delivering 
-                accessible, high-quality mental health support worldwide.
+              <p className="text-xl text-body leading-relaxed text-center max-w-4xl mx-auto whitespace-nowrap">
+                Safepsy is building a global ecosystem of safe mental health care compliant with APA and HIPAA standards.
+              </p>
+              <p className="text-xl text-body leading-relaxed text-center max-w-4xl mx-auto whitespace-nowrap">
+                We aim to make psychotherapy accessible to everyone, everywhere, without compromising on privacy or quality.
               </p>
             </div>
 
@@ -50,7 +47,7 @@ const AboutUs: React.FC = () => {
                 </div>
                 <h3 className="text-xl text-heading">Secure</h3>
                 <p className="text-body">
-                  Security is the foundation of SafePsy's ecosystem: Every session, transaction, and data exchange is encrypted and verified. Users maintain full control of their personal information, no third party can access data without explicit consent.
+                  Security is the foundation of SafePsy's ecosystem: Every session, transaction, and data exchange is encrypted and verified. Users maintain full control of their personal information, no third party can access private data.
                 </p>
               </div>
               
@@ -83,7 +80,7 @@ const AboutUs: React.FC = () => {
                 </span>
               </h2>
               <p className="text-lg text-body leading-relaxed text-center max-w-4xl mx-auto mb-12">
-                SafePsy integrates artificial intelligence, blockchain, and secure digital identity to transform the way therapy and mental health support are delivered worldwide. Users control their own data through decentralized identity, verified directly on the blockchain, ensuring privacy and compliance at every step. An AI-powered therapy assistant provides immediate support, helping users prepare for sessions, reflect between appointments, and access guidance in moments of need. In everything we design, technology is shaped to serve human wellbeing and provide a secure environment.
+                SafePsy integrates artificial intelligence, blockchain, and secure digital identity to transform the way therapy and mental health support are delivered worldwide. Users control their own data through decentralized identity, verified directly on the blockchain, ensuring privacy and compliance at every step. An AI-powered therapy assistant provides immediate support, helping users prepare for sessions, reflect between appointments, and access guidance in moments of need.
               </p>
               
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -93,7 +90,7 @@ const AboutUs: React.FC = () => {
                   </div>
                   <h3 className="text-xl text-heading">AI-Powered</h3>
                   <p className="text-body">
-                    AI assistant don't use your data for training, it evolves through ethical, psychology-informed training. It helps users prepare, reflect, and complement human psychologists.
+                    Our AI assistant don't use your data for training, it evolves through psychology-informed training. It helps users prepare, reflect, and complement human psychologists.
                   </p>
                 </div>
                 
@@ -113,7 +110,7 @@ const AboutUs: React.FC = () => {
                   </div>
                   <h3 className="text-xl text-heading">Global Access</h3>
                   <p className="text-body">
-                    Mental health support should know no borders: Both psychologists and clients can join from anywhere in the world.
+                    Both psychologists and patients can use the platform from anywhere in the world with our accessible pricing.
                   </p>
                 </div>
               </div>
@@ -127,40 +124,48 @@ const AboutUs: React.FC = () => {
                 </span>
               </h2>
               <p className="text-lg text-body leading-relaxed text-center max-w-4xl mx-auto mb-12">
-                Safepsy's team brings together psychologists, ergonomists and engineers with a shared purpose: to redefine mental health care for the digital era in a safe and adequate environment.
+                Safepsy's team gather professionals with a shared purpose: to redefine mental health care for the digital era in a safe and adequate environment.
               </p>
               
               {/* Team Members */}
               <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
                 {/* Co-Founder 1 */}
                 <div className="text-center space-y-4">
-                  <div className="w-48 h-48 mx-auto bg-neutral-100 rounded-2xl border-2 border-dashed border-neutral-300 flex items-center justify-center">
-                    <span className="text-neutral-400 text-sm">Picture placeholder</span>
+                  <div className="w-48 h-48 mx-auto rounded-2xl overflow-hidden">
+                    <img 
+                      src="/ManAvatar.png" 
+                      alt="Co-Founder, CEO & CTO" 
+                      className="w-full h-full object-cover"
+                    />
                   </div>
                   <h3 className="text-xl font-bold text-heading">
-                    Co-Founder, CEO & CTO
+                    Thibaut TENENBAUM
                   </h3>
                   <p className="text-body">
-                    Description below
+                    Ergonomist & Work Psychologist
                   </p>
                   <p className="text-body italic">
-                    Italic phrase below
+                    Specialized in work systems, blockchain & AI.
                   </p>
                 </div>
                 
                 {/* Co-Founder 2 */}
                 <div className="text-center space-y-4">
-                  <div className="w-48 h-48 mx-auto bg-neutral-100 rounded-2xl border-2 border-dashed border-neutral-300 flex items-center justify-center">
-                    <span className="text-neutral-400 text-sm">Picture placeholder</span>
+                  <div className="w-48 h-48 mx-auto rounded-2xl overflow-hidden">
+                    <img 
+                      src="/WomanAvatar.png" 
+                      alt="Co-Founder, CMO, CPRO" 
+                      className="w-full h-full object-cover"
+                    />
                   </div>
                   <h3 className="text-xl font-bold text-heading">
-                    Co-Founder, CMO, CPRO
+                    Polina TENENBAUM
                   </h3>
                   <p className="text-body">
-                    Description below
+                    Work Psychologist & Ergonomist
                   </p>
                   <p className="text-body italic">
-                    Italic phrase below
+                    Specialized in psychometric assessments & counsil.
                   </p>
                 </div>
               </div>
@@ -173,7 +178,7 @@ const AboutUs: React.FC = () => {
                 Ready to Experience the Future of Mental Health Care?
               </h2>
               <p className="text-lg text-body mb-8 max-w-2xl mx-auto">
-                Join our waitlist to be among the first to experience secure, AI-enhanced therapy sessions.
+                Join our waitlist to be among the first to experience safe online-therapy.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <button 
@@ -181,12 +186,6 @@ const AboutUs: React.FC = () => {
                   className="btn-primary text-lg px-8 py-4"
                 >
                   Join Our Waitlist
-                </button>
-                <button 
-                  onClick={() => navigate('/')}
-                  className="btn-secondary text-[1.1em] px-8 py-4"
-                >
-                  Back to Home
                 </button>
               </div>
             </div>

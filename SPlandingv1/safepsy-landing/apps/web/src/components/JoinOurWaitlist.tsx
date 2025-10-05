@@ -114,10 +114,7 @@ const JoinOurWaitlist: React.FC = () => {
                 </span>
               </h1>
               <p className="text-xl text-body leading-relaxed max-w-3xl mx-auto">
-                Be the first to experience SafePsy's revolutionary AI-powered therapy platform.
-              </p>
-              <p className="text-xl text-body leading-relaxed max-w-3xl mx-auto">
-                Get early access and exclusive updates.
+                Join our waitlist to be among the first to experience safe online-therapy.
               </p>
             </div>
 
@@ -125,7 +122,7 @@ const JoinOurWaitlist: React.FC = () => {
             <div className="bg-white/70 backdrop-blur-sm rounded-3xl p-8 lg:p-12 shadow-lg border border-neutral-dark/20 dark:bg-black/30 dark:border-white/20 mb-16">
               <h2 className="text-2xl lg:text-3xl text-heading mb-8 text-center">
                 <span className="bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent">
-                  Get Early Access
+                  Get early access and exclusive updates.
                 </span>
               </h2>
               

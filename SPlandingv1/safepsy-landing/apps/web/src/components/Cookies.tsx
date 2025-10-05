@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { Cookie, Settings, Shield, Eye, CheckCircle, AlertTriangle } from 'lucide-react'
 import Header from './Header'
 import Footer from './Footer'
@@ -25,19 +26,6 @@ const Cookies: React.FC = () => {
               </p>
             </div>
 
-            {/* Last Updated */}
-            <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl p-6 mb-16">
-              <div className="flex items-start gap-3">
-                <AlertTriangle className="w-6 h-6 text-blue-600 dark:text-blue-400 mt-1 flex-shrink-0" />
-                <div>
-                  <h3 className="text-lg text-heading dark:text-white mb-2">Last Updated: September 2025</h3>
-                  <p className="text-body dark:text-white">
-                    This Cookie Policy explains how SafePsy uses cookies and similar technologies when you visit our website 
-                    and use our services.
-                  </p>
-                </div>
-              </div>
-            </div>
 
             {/* What Are Cookies */}
             <div className="bg-white/70 backdrop-blur-sm rounded-3xl p-12 lg:p-16 shadow-lg border border-neutral-dark/20 dark:bg-black/30 dark:border-white/20 mb-16">
@@ -345,7 +333,14 @@ const Cookies: React.FC = () => {
               </h2>
               <p className="text-lg text-body mb-8 max-w-2xl mx-auto">
                 If you have any questions about how we use cookies or would like to exercise your rights, 
-                please contact us.
+                please{' '}
+                <Link 
+                  to="/contact-us" 
+                  className="bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent font-semibold hover:from-primary-700 hover:to-secondary-700 transition-all duration-200"
+                >
+                  contact us
+                </Link>
+                .
               </p>
             </div>
 

@@ -50,6 +50,28 @@ const Hero: React.FC = () => {
           </div>
         </div>
 
+        {/* Mission Statement Section */}
+        <div className="text-center py-20">
+          <div className="max-w-4xl mx-auto">
+            <div className="text-body leading-relaxed space-y-3 italic">
+              <div className="text-3xl lg:text-4xl">
+                "The future of mental health depends on technology
+              </div>
+              <div className="text-3xl lg:text-4xl">
+                that is both{' '}
+                <span className="bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent font-bold">
+                  safe{' '}
+                </span>
+                and{' '}
+                <span className="bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent font-bold">
+                  user-controlled{' '}
+                </span>
+                ."
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* Values Section */}
         <div className="text-center py-16">
           <div className="bg-white/70 backdrop-blur-sm rounded-3xl p-12 lg:p-16 shadow-lg border border-neutral-dark/20 dark:bg-black/30 dark:border-white/20">
@@ -76,7 +98,7 @@ const Hero: React.FC = () => {
                 </div>
                 <h3 className="text-xl text-heading">Ethical</h3>
                 <p className="text-body">
-                  Compliant with APA guidelines, made by psychologists
+                  Compliant with APA and HIPAA guidelines, made by psychologists to protect patients
                 </p>
               </div>
               
@@ -86,7 +108,7 @@ const Hero: React.FC = () => {
                 </div>
                 <h3 className="text-xl text-heading">Human-centered</h3>
                 <p className="text-body">
-                  Technology that protects individuals and enhance global mental health accessibility
+                  Enhanced interface and pricing to enable global mental health accessibility
                 </p>
               </div>
             </div>
